@@ -290,6 +290,46 @@ class JSONDataManager(DataManagerInterface):
         # Save the updated data
         self._save_data(self.data)
 
+    def update_user(self, user_id, new_user_name):
+        """
+        Update user's name.
+
+        Args:
+            user_id (int): The ID of the user to be updated.
+            new_user_name (str): The new name for the user.
+        """
+        user_id_str = str(user_id)
+
+        # Check if the user exists
+        if not self._user_exists(user_id):
+            print(f"User with ID '{user_id}' does not exist.")
+            return
+
+        # Update the user's name
+        self.data['users'][user_id_str]['name'] = new_user_name
+
+        # Save the updated data
+        self._save_data(self.data)
+
+    def delete_user(self, user_id):
+        """
+        Delete a user and associated data.
+
+        Args:
+            user_id (int): The ID of the user to be deleted.
+        """
+        user_id_str = str(user_id)
+
+        # Check if the user exists
+        if not self._user_exists(user_id):
+            print(f"User with ID '{user_id}' does not exist.")
+            return
+
+        # Remove the user entry
+        del self.data['users'][user_id_str]
+
+        # Save the updated data
+        self._save_data(self.data)
 
 # test unit
 json_manager = JSONDataManager('data.json')
@@ -342,3 +382,5 @@ print(test_manager.list_movies())
 test_manager.add_user('Stacy')
 data_manager.add_user('Stacy')
 json_manager.add_user('Stacy')
+test_manager.update_user(1, 'Colin')
+test_manager.delete_user(1)
