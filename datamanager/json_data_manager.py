@@ -218,6 +218,78 @@ class JSONDataManager(DataManagerInterface):
         # Save the updated data
         self._save_data(self.data)
 
+    def generate_unique_user_id(self):
+        """
+        Generate a unique user ID based on existing IDs in the data.
+
+        Returns:
+            int: A unique user ID.
+        """
+        # Get the existing user IDs
+        existing_ids = [int(user_id) for user_id in self.data['users']]
+
+        # Generate a unique user ID
+        if existing_ids:
+            new_id = max(existing_ids) + 1
+        else:
+            # If no existing user, start from 1
+            new_id = 1
+
+        return new_id
+
+    def get_user_id_by_name(self, user_name):
+        """
+        Get the user ID by the username.
+
+        Args:
+            user_name (str): The name of the user.
+
+        Returns:
+            int or None: The user ID if found, otherwise None.
+        """
+        for user_id, user_data in self.data['users'].items():
+            if user_data['name'] == user_name:
+                return int(user_id)
+        return None
+
+    def add_user(self, user_name):
+        """
+        Add a new user. user_id should be generated.
+
+        Args:
+            user_name (str): The name of the user to be added.
+
+        Returns:
+            int: The generated user ID.
+        """
+        # Check if a user with the same name already exists
+        existing_user_id = self.get_user_id_by_name(user_name)
+        if existing_user_id is not None:
+            # User with the same name already exists
+            print(f"A user with the name '{user_name}' already exists.")
+
+            # Ask the user if they want to create a new user or stick with the existing one
+            choice = input("Do you want to create a new user? (yes/no): ").lower()
+            if choice != "yes":
+                # Stick with the existing user
+                return existing_user_id
+
+        # Generate a unique user ID
+        generated_id = self.generate_unique_user_id()
+
+        # Create a new user entry
+        new_user_data = {
+            "id": generated_id,
+            "name": user_name,
+            "movies": {}
+        }
+
+        # Add the new user to the data dictionary
+        self.data['users'][str(generated_id)] = new_user_data
+
+        # Save the updated data
+        self._save_data(self.data)
+
 
 # test unit
 json_manager = JSONDataManager('data.json')
@@ -266,3 +338,7 @@ test_manager.add_movie(1, {'id': 1, 'title': 'Movie 1'})
 test_manager.add_movie(1, {'id': 2, 'title': 'Movie 2'})
 print("All movies:")
 print(test_manager.list_movies())
+
+test_manager.add_user('Stacy')
+data_manager.add_user('Stacy')
+json_manager.add_user('Stacy')
