@@ -1,6 +1,6 @@
+from .data_manager_interface import DataManagerInterface
 import json
 import os
-from data_manager_interface import DataManagerInterface
 
 
 class JSONDataManager(DataManagerInterface):
@@ -331,13 +331,14 @@ class JSONDataManager(DataManagerInterface):
         # Save the updated data
         self._save_data(self.data)
 
+
 # test unit
-json_manager = JSONDataManager('data.json')
-"""all_users = json_manager.get_all_users()
+"""json_manager = JSONDataManager('data.json')
+all_users = json_manager.get_all_users()
 print("All users:", all_users)
 # Extract names of users
 user_names = [user['name'] for user in all_users.values()]
-print(user_names)"""
+print(user_names)
 # user_movies = json_manager.get_user_movies(1)
 # print(f"Movies of user {1}:", user_movies)
 json_manager.add_movie(1, {'id': 10, 'title': 'Movie 10'})
@@ -347,11 +348,11 @@ print("All movies:")
 print(json_manager.list_movies())
 
 data_manager = JSONDataManager('test_data.json')
-"""all_users_test = data_manager.get_all_users()
+all_users_test = data_manager.get_all_users()
 print("All users:", all_users_test)
 # Extract names of users
 user_names_test = [user['name'] for user in all_users_test.values()]
-print(user_names_test)"""
+print(user_names_test)
 # user_movies = data_manager.get_user_movies(2)
 # print(f"Movies of user {2}:", user_movies)
 # user_movies = data_manager.get_user_movies(5)
@@ -370,8 +371,8 @@ data_manager.update_movie(1, 1, {'title': 'Updated Movie 1'})
 print(data_manager.get_user_movies(1))
 
 test_manager = JSONDataManager('test_test.json')
-"""all_users_test_test = test_manager.get_all_users()
-print("All users:", all_users_test_test)"""
+all_users_test_test = test_manager.get_all_users()
+print("All users:", all_users_test_test)
 user_movies = test_manager.get_user_movies(3)
 print(f"Movies of user {3}:", user_movies)
 test_manager.add_movie(1, {'id': 1, 'title': 'Movie 1'})
@@ -383,4 +384,4 @@ test_manager.add_user('Stacy')
 data_manager.add_user('Stacy')
 json_manager.add_user('Stacy')
 test_manager.update_user(1, 'Colin')
-test_manager.delete_user(1)
+test_manager.delete_user(1)"""
