@@ -27,7 +27,9 @@ def user_movies(user_id):
     # movies = fetch_movies(user_id)
     # Render user_movies.html template with movies data
     # return render_template('user_movies.html', movies=movies)
-    pass
+    movies = data_manager.get_user_movies(user_id)
+    user = data_manager.get_user_by_id(user_id)
+    return render_template('user_movies.html', user=user, movies=movies)
 
 
 # Route for displaying form to add a new user
@@ -62,6 +64,24 @@ def add_user():
 
     # If it's a GET request or if there were validation errors, render the add_user.html template
     return render_template('add_user.html', error_message=error_message)
+
+
+@app.route('/')
+def add_movie():
+    pass
+
+
+@app.route('/')
+def update_movie():
+    pass
+
+
+@app.route('/users/<int:user_id>/delete_movie/<int:movie_id>', methods=['DELETE'])
+def delete_movie(user_id, movie_id):
+    # Delete the movie
+    data_manager.delete_movie(user_id, movie_id)
+
+    return redirect(url_for('user_movies', user_id=user_id))
 
 
 if __name__ == '__main__':

@@ -184,8 +184,12 @@ class JSONDataManager(DataManagerInterface):
         # Get the user's movies
         movies = self.get_user_movies(user_id)
 
+        print(movies)
+        print(movie_id)
+        print(movies[str(movie_id)])
+
         # Delete the movie from the user's movies
-        del movies[movie_id]
+        del movies[str(movie_id)]
 
         # Save the updated data
         self._save_data(self.data)
@@ -236,6 +240,18 @@ class JSONDataManager(DataManagerInterface):
             new_id = 1
 
         return new_id
+
+    def get_user_by_id(self, user_id):
+        """
+        Get user data by user ID.
+
+        Args:
+            user_id (int): The ID of the user to retrieve.
+
+        Returns:
+            dict or None: A dictionary containing user data if the user is found, else None.
+        """
+        return self.data.get("users", {}).get(str(user_id))
 
     def get_user_id_by_name(self, user_name):
         """
