@@ -58,6 +58,22 @@
                     "director": "Land Bolan",
                     "year": 2011,
                     "rating": 8.2
+                },
+                "tt0137523": {
+                    "id": "tt0137523",
+                    "title": "Fight Club",
+                    "director": "David Fincher",
+                    "year": 1999,
+                    "rating": 8.8,
+                    "poster_url": "https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
+                },
+                "tt1767306": {
+                    "id": "tt1767306",
+                    "title": "fig",
+                    "director": "Ryan Coogler",
+                    "year": 2010,
+                    "rating": 7.0,
+                    "poster_url": "https://m.media-amazon.com/images/M/MV5BNjI0M2Y4MTQtMGU0MS00Zjk2LWE1NGQtZTMwMGQyNTllNzU5XkEyXkFqcGdeQXVyMjQyNTEwNTE@._V1_SX300.jpg"
                 }
             }
         },
@@ -69,7 +85,16 @@
         "5": {
             "id": 5,
             "name": "allive",
-            "movies": {}
+            "movies": {
+                "tt0245429": {
+                    "id": "tt0245429",
+                    "title": "Spirited Away",
+                    "director": "Hayao Miyazaki",
+                    "year": 2001,
+                    "rating": 8.6,
+                    "poster_url": "https://m.media-amazon.com/images/M/MV5BMjlmZmI5MDctNDE2YS00YWE0LWE5ZWItZDBhYWQ0NTcxNWRhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg"
+                }
+            }
         },
         "6": {
             "id": 6,
@@ -84,6 +109,11 @@
         "8": {
             "id": 8,
             "name": "Simon",
+            "movies": {}
+        },
+        "9": {
+            "id": 9,
+            "name": "Yim",
             "movies": {}
         }
     }

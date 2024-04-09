@@ -6,7 +6,7 @@
     <title>User Movies</title>
 </head>
 <body>
-    <h1>{{ user }}'s Favorite Movies</h1>
+    <h1>{{ user.name }}'s Favorite Movies</h1>
     <ul>
         {% for movie_id, movie_data in movies.items() %}
             <li>{{ movie_data.title }} - <a href="/users/{{ user.id }}/update_movie/{{ movie_id }}">Edit</a> | <a href="#" class="delete-movie" data-user="{{ user.id }}" data-movie="{{ movie_id }}">Delete</a>

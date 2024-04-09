@@ -1,4 +1,5 @@
 from .data_manager_interface import DataManagerInterface
+from .movie_api import MovieAPI
 import json
 import os
 
@@ -10,6 +11,11 @@ class UserNotFoundException(Exception):
 
 class MovieNotFoundException(Exception):
     """Exception raised when the requested movie is not found."""
+    pass
+
+
+class MovieExistsException(Exception):
+    """Exception raised when the requested movie is already exists."""
     pass
 
 
@@ -152,29 +158,54 @@ class JSONDataManager(DataManagerInterface):
 
         return all_movies
 
-    def add_movie(self, user_id, movie_data):
+    def get_user_info(self, identifier):
         """
-        Add a movie for a given user.
+        Get user information by user ID or username.
 
         Args:
-            user_id (int): The ID of the user.
-            movie_data (dict): Dictionary containing movie data to be added.
+            identifier (int or str): The ID or name of the user.
+
+        Returns:
+            dict or None: The user information if found, otherwise None.
         """
-        if not self._user_exists(user_id):
-            print(f"User with ID '{user_id}' does not exist.")
-            return
+        if isinstance(identifier, int):
+            return self.data['users'].get(str(identifier))
+        elif isinstance(identifier, str):
+            for user_data in self.data['users'].values():
+                if user_data['name'] == identifier:
+                    return user_data
+        return None
 
-        # Get the user's movies and movie ID
-        movies = self.get_user_movies(user_id)
-        movie_id = movie_data.get('id')
+    def add_movie(self, user_id, title):
+        # Step 1: Find the user
+        if str(user_id) not in self.data['users']:
+            raise UserNotFoundException(f"User with ID {user_id} not found.")
 
-        if self._movie_exists(user_id, movie_id):
-            return
+        user_movies = self.get_user_movies(user_id)  # Use get_user_movies here
 
-        print(f"Movie with ID '{movie_id}' not found for user '{user_id}'.")
-        movies[movie_id] = movie_data
+        # Step 2: Fetch information about the movie from the OMDB API
+        movie_info = MovieAPI.fetch_movie_info(title)
+        if movie_info.get('Response') == 'False':
+            # Movie not found in the OMDB database
+            raise MovieNotFoundException(f"Movie '{title}' not found.")
 
+        # Step 3: Add the movie to the user's movie collection
+        movie_id = movie_info.get('imdbID')
+        if movie_id in user_movies:
+            raise MovieExistsException(f"Movie '{title}' already exists in user's collection.")
+
+        user_movies[movie_id] = {
+            'id': movie_id,
+            'title': title,
+            'director': movie_info.get('Director'),
+            'year': int(movie_info.get('Year')),
+            'rating': float(movie_info.get('imdbRating')),
+            'poster_url': movie_info.get('Poster', '')
+        }
+
+        # Save the updated data to the file
         self._save_data(self.data)
+        print(f"Movie '{title}' added to user {user_id}'s collection.")
 
     def delete_movie(self, user_id, movie_id):
         """

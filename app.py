@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-from datamanager.json_data_manager import JSONDataManager, UserNotFoundException
+from datamanager.json_data_manager import JSONDataManager, \
+    UserNotFoundException, MovieNotFoundException, MovieExistsException
 import os
 
 # Define the path to the data.json file
@@ -21,7 +22,7 @@ def list_users():
 
 
 # Route for displaying user's favorite movies
-@app.route('/users/<user_id>')
+@app.route('/users/<int:user_id>')
 def display_user_movies(user_id):
     try:
         # Fetch user's movies based on user_id
@@ -29,17 +30,14 @@ def display_user_movies(user_id):
         # Render user_movies.html template with movies data
         # return render_template('user_movies.html', movies=movies)
         movies = data_manager.get_user_movies(user_id)
-        user = data_manager.get_username_by_id(user_id)
+        # user = data_manager.get_username_by_id(user_id)
+        user = data_manager.get_user_info(user_id)
+        print(user)
         # Display the movies for the user
         return render_template('user_movies.html', user=user, movies=movies)
     except UserNotFoundException:
         # Redirect the user to a different page
         return redirect(url_for('user_not_found', user_id=user_id))
-
-
-@app.route('/user_not_found/<int:user_id>')
-def user_not_found(user_id):
-    return f"Sorry, the requested user with ID {user_id} does not exist."
 
 
 # Route for displaying form to add a new user
@@ -76,9 +74,18 @@ def add_user():
     return render_template('add_user.html', error_message=error_message)
 
 
-@app.route('/')
-def add_movie():
-    pass
+@app.route('/users/<int:user_id>/add_movie', methods=['GET', 'POST'])
+def add_movie(user_id):
+    if request.method == 'POST':
+        title = request.form['title']
+        try:
+            data_manager.add_movie(user_id, title)
+            return redirect(f'/users/{user_id}')
+        except UserNotFoundException:
+            return redirect(f'/user_not_found/{user_id}')
+        except (MovieNotFoundException, MovieExistsException) as exception:
+            return render_template('error.html', message=str(exception))
+    return render_template('add_movie.html', user_id=user_id)
 
 
 @app.route('/')
@@ -92,6 +99,16 @@ def delete_movie(user_id, movie_id):
     data_manager.delete_movie(user_id, movie_id)
 
     return redirect(url_for('user_movies', user_id=user_id))
+
+
+@app.route('/user_not_found/<int:user_id>')
+def user_not_found(user_id):
+    return render_template('error.html', message=f"Sorry, the requested user with ID {user_id} does not exist.")
+
+
+@app.route('/error')
+def error():
+    return render_template('error.html', message="An error occurred.")
 
 
 if __name__ == '__main__':
