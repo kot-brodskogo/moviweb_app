@@ -263,7 +263,7 @@ class JSONDataManager(DataManagerInterface):
             int: The generated user ID.
         """
         # Check if a user with the same name already exists
-        existing_user_id = self.get_user_id_by_name(user_name)
+        """existing_user_id = self.get_user_id_by_name(user_name)
         if existing_user_id is not None:
             # User with the same name already exists
             print(f"A user with the name '{user_name}' already exists.")
@@ -272,7 +272,7 @@ class JSONDataManager(DataManagerInterface):
             choice = input("Do you want to create a new user? (yes/no): ").lower()
             if choice != "yes":
                 # Stick with the existing user
-                return existing_user_id
+                return existing_user_id"""
 
         # Generate a unique user ID
         generated_id = self.generate_unique_user_id()
