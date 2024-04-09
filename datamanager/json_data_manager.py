@@ -3,6 +3,16 @@ import json
 import os
 
 
+class UserNotFoundException(Exception):
+    """Exception raised when the requested user is not found."""
+    pass
+
+
+class MovieNotFoundException(Exception):
+    """Exception raised when the requested movie is not found."""
+    pass
+
+
 class JSONDataManager(DataManagerInterface):
     def __init__(self, filepath):
         """
@@ -62,12 +72,13 @@ class JSONDataManager(DataManagerInterface):
 
     def get_all_users(self):
         """
-        Return all users from the JSON file.
+        Return all users from the JSON file with only their IDs and names.
 
         Returns:
-             dict: Dictionary of users, where keys are user IDs and values are user data.
+            dict: Dictionary of users, where keys are user IDs and values are user data containing only ID and name.
         """
-        return self.data.get('users', {})
+        return {user_id: {'id': user_info['id'], 'name': user_info['name']} for user_id, user_info
+                in self.data.get('users', {}).items()}
 
     def get_user_movies(self, user_id):
         """
@@ -78,12 +89,15 @@ class JSONDataManager(DataManagerInterface):
 
         Returns:
             dict: Dictionary of movies for the given user, where keys are movie IDs and values are movie data.
-        """
-        if not self._user_exists(user_id):
-            print(f"user {user_id} not exists")
-            return {}
 
+        Raises:
+            UserNotFoundException: If the requested user is not found.
+        """
         user_id_str = str(user_id)
+
+        if user_id_str not in self.data['users']:
+            raise UserNotFoundException(f"User with ID {user_id} not found.")
+
         return self.data['users'][user_id_str].get('movies', {})
 
     def _user_exists(self, user_id):
@@ -241,17 +255,17 @@ class JSONDataManager(DataManagerInterface):
 
         return new_id
 
-    def get_user_by_id(self, user_id):
+    def get_username_by_id(self, user_id):
         """
-        Get user data by user ID.
+        Get username by user ID.
 
         Args:
             user_id (int): The ID of the user to retrieve.
 
         Returns:
-            dict or None: A dictionary containing user data if the user is found, else None.
+            str: The name of the user with the given ID, or None if the user is not found.
         """
-        return self.data.get("users", {}).get(str(user_id))
+        return self.data['users'].get(str(user_id), {}).get('name')
 
     def get_user_id_by_name(self, user_name):
         """

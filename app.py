@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from datamanager.json_data_manager import JSONDataManager
+from datamanager.json_data_manager import JSONDataManager, UserNotFoundException
 import os
 
 # Define the path to the data.json file
@@ -22,14 +22,24 @@ def list_users():
 
 # Route for displaying user's favorite movies
 @app.route('/users/<user_id>')
-def user_movies(user_id):
-    # Fetch user's movies based on user_id
-    # movies = fetch_movies(user_id)
-    # Render user_movies.html template with movies data
-    # return render_template('user_movies.html', movies=movies)
-    movies = data_manager.get_user_movies(user_id)
-    user = data_manager.get_user_by_id(user_id)
-    return render_template('user_movies.html', user=user, movies=movies)
+def display_user_movies(user_id):
+    try:
+        # Fetch user's movies based on user_id
+        # movies = fetch_movies(user_id)
+        # Render user_movies.html template with movies data
+        # return render_template('user_movies.html', movies=movies)
+        movies = data_manager.get_user_movies(user_id)
+        user = data_manager.get_username_by_id(user_id)
+        # Display the movies for the user
+        return render_template('user_movies.html', user=user, movies=movies)
+    except UserNotFoundException:
+        # Redirect the user to a different page
+        return redirect(url_for('user_not_found', user_id=user_id))
+
+
+@app.route('/user_not_found/<int:user_id>')
+def user_not_found(user_id):
+    return f"Sorry, the requested user with ID {user_id} does not exist."
 
 
 # Route for displaying form to add a new user
