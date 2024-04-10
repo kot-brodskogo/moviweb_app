@@ -4,30 +4,21 @@
             "id": 1,
             "name": "Alice",
             "movies": {
-                "1": {
-                    "id": 1,
-                    "title": "Inception",
-                    "director": "Christopher Nolan",
-                    "year": 2010,
-                    "rating": 8.8
-                },
-                "2": {
-                    "id": 2,
+                "tt0468569": {
+                    "id": "tt0468569",
                     "title": "The Dark Knight",
                     "director": "Christopher Nolan",
                     "year": 2008,
-                    "rating": 9.0
+                    "rating": 9.0,
+                    "poster_url": "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg"
                 },
-                "3": {
-                    "id": 3,
-                    "title": "Happy",
-                    "director": "Happy Happy",
-                    "year": 2018,
-                    "rating": 9.5
-                },
-                "10": {
-                    "id": 10,
-                    "title": "Movie 10"
+                "tt1375666": {
+                    "id": "tt1375666",
+                    "title": "Inception ",
+                    "director": "Christopher Nolan",
+                    "year": 2010,
+                    "rating": 8.8,
+                    "poster_url": "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg"
                 }
             }
         },
@@ -35,9 +26,37 @@
             "id": 2,
             "name": "Bob",
             "movies": {
-                "29": {
-                    "id": 29,
-                    "title": "Movie 29"
+                "tt1375666": {
+                    "id": "tt1375666",
+                    "title": "Inception",
+                    "director": "Christopher Nolan",
+                    "year": 2010,
+                    "rating": 8.8,
+                    "poster_url": "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg"
+                },
+                "tt0366548": {
+                    "id": "tt0366548",
+                    "title": "Happy Feet",
+                    "director": "George Miller, Warren Coleman, Judy Morris",
+                    "year": 2006,
+                    "rating": 6.4,
+                    "poster_url": "https://m.media-amazon.com/images/M/MV5BZWU2NDkxYjktNWVlMS00MTM4LWJjMDAtOWYxZjJkZWFhYzAxXkEyXkFqcGdeQXVyMTA1NjE5MTAz._V1_SX300.jpg"
+                },
+                "tt0212985": {
+                    "id": "tt0212985",
+                    "title": "Hannibal",
+                    "director": "Ridley Scott",
+                    "year": 2001,
+                    "rating": 6.8,
+                    "poster_url": "https://m.media-amazon.com/images/M/MV5BZDMxMjhiZmItNWMxMC00NzYyLWJiOTYtNGYwOTAyYjU5OWY4XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
+                },
+                "tt0093169": {
+                    "id": "tt0093169",
+                    "title": "Hector",
+                    "director": "Stijn Coninx",
+                    "year": 1987,
+                    "rating": 6.9,
+                    "poster_url": "https://m.media-amazon.com/images/M/MV5BMTU3MjUwNTA4OF5BMl5BanBnXkFtZTcwNzk0MzMzMQ@@._V1_SX300.jpg"
                 }
             }
         },

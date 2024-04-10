@@ -1,35 +1,27 @@
-// Function to handle the click event of delete links
-function handleDeleteClick(event) {
-    event.preventDefault();
+// Add an event listener to all elements with the class "delete-movie"
+document.querySelectorAll('.delete-movie').forEach(link => {
+    link.addEventListener('click', function(event) {
+        // Prevent the default behavior of the link
+        event.preventDefault();
 
-    // Get the user ID and movie ID from the data attributes
-    const userId = this.getAttribute('data-user');
-    const movieId = this.getAttribute('data-movie');
+        // Retrieve the user ID and movie ID from the data attributes
+        const userId = this.dataset.user;
+        const movieId = this.dataset.movie;
 
-    // Send a DELETE request to the server
-    fetch(`/users/${userId}/delete_movie/${movieId}`, {
-        method: 'DELETE'
-    })
-    .then(response => {
-        if (response.ok) {
-            // If the deletion was successful, redirect to the user's movies page
+        // Send a DELETE request to the server
+        fetch(`/users/${userId}/delete_movie/${movieId}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete movie');
+            }
+            // Redirect to the user_movies page upon successful deletion
             window.location.href = `/users/${userId}`;
-        } else {
-            // If there was an error, display an alert message
-            alert('Failed to delete the movie. Please try again.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again later.');
+        })
+        .catch(error => {
+            console.error('Error deleting movie:', error);
+            // Handle the error (e.g., display an error message to the user)
+        });
     });
-}
-
-// Get all delete links with the 'delete-movie' class
-const deleteLinks = document.querySelectorAll('.delete-movie');
-
-// Loop through each delete link
-deleteLinks.forEach(link => {
-    // Add a click event listener to each link
-    link.addEventListener('click', handleDeleteClick);
 });

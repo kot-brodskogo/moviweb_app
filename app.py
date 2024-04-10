@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from datamanager.json_data_manager import JSONDataManager, \
     UserNotFoundException, MovieNotFoundException, MovieExistsException
 import os
@@ -30,9 +30,9 @@ def display_user_movies(user_id):
         # Render user_movies.html template with movies data
         # return render_template('user_movies.html', movies=movies)
         movies = data_manager.get_user_movies(user_id)
+        print(movies)
         # user = data_manager.get_username_by_id(user_id)
         user = data_manager.get_user_info(user_id)
-        print(user)
         # Display the movies for the user
         return render_template('user_movies.html', user=user, movies=movies)
     except UserNotFoundException:
@@ -93,12 +93,17 @@ def update_movie():
     pass
 
 
-@app.route('/users/<int:user_id>/delete_movie/<int:movie_id>', methods=['DELETE'])
+@app.route('/users/<int:user_id>/delete_movie/<movie_id>', methods=['DELETE'])
 def delete_movie(user_id, movie_id):
-    # Delete the movie
-    data_manager.delete_movie(user_id, movie_id)
-
-    return redirect(url_for('user_movies', user_id=user_id))
+    try:
+        # Delete the movie
+        data_manager.delete_movie(user_id, movie_id)
+        # return redirect(f'/users/{user_id}')
+        return jsonify({'message': f'Movie with id {movie_id} has been deleted successfully.'}), 200
+    except UserNotFoundException:
+        return redirect(f'/user_not_found/{user_id}')
+    except MovieNotFoundException as exception:
+        return render_template('error.html', message=str(exception))
 
 
 @app.route('/user_not_found/<int:user_id>')

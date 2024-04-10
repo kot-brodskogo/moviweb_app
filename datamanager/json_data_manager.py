@@ -216,25 +216,20 @@ class JSONDataManager(DataManagerInterface):
             movie_id (int): The ID of the movie to check.
         """
 
-        # Check if the user exists
-        if not self._user_exists(user_id):
-            print(f"User with ID '{user_id}' does not exist.")
-            return
+        # Step 1: Retrieve the user's movies using get_user_movies
+        user_movies = self.get_user_movies(user_id)
 
-        # Check if the movie exists for the user
-        if not self._movie_exists(user_id, movie_id):
-            print(f"Movie with ID '{movie_id}' not found for user '{user_id}'.")
-            return
+        # Step 2: Check if the movie exists for the user
+        if str(movie_id) not in user_movies:
+            raise MovieNotFoundException(f"Movie with ID {movie_id} not found for user {user_id}.")
 
-        # Get the user's movies
-        movies = self.get_user_movies(user_id)
+        # Step 3: Delete the movie from the user's movies
+        del user_movies[str(movie_id)]
 
-        print(movies)
-        print(movie_id)
-        print(movies[str(movie_id)])
+        # Save the updated data to the file
+        self._save_data(self.data)
 
-        # Delete the movie from the user's movies
-        del movies[str(movie_id)]
+        print(f"Movie with ID {movie_id} deleted for user {user_id}.")
 
         # Save the updated data
         self._save_data(self.data)
