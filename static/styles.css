@@ -20,17 +20,32 @@ h1 {
     font-size: 2rem;
 }
 
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
+header > h1,
+ header > p {
+    margin: 0 0 1rem 0;
+}
+
+header {
+    margin: 3rem 0;
     text-align: center;
 }
 
-.movie.container {
+footer {
+    margin: 0 0 3rem 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.movies.container {
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
 }
 
@@ -38,6 +53,11 @@ h1 {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     width: 128px;
     height: 193px;
+}
+
+.movie {
+    width: 180px;
+    margin: 0.5rem;
 }
 
 .index.container {
@@ -67,6 +87,7 @@ h1 {
   --blue: #0f6fff;
   --onyx: #323745;
   --light-blue: #217aff;
+  --red: #f95746;
 }
 
 /* On screens that are 992px or less */
@@ -116,6 +137,29 @@ h1 {
 .button.is-secondary:hover {
     border-color: var(--blue);
     color: var(--blue);
+}
+
+.button.delete-movie {
+    border-color: var(--red);
+    background-color: var(--red);
+}
+
+.button.delete-movie:hover {
+    border-color: var(--red);
+    color: var(--red);
+    background-color: transparent;
+}
+
+.button.is-small {
+    padding: 0.3rem 1rem;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0.5rem 0;
 }
 
 ul {

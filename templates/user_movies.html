@@ -10,20 +10,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <header>
     <h1>{{ user.name }}'s Favorite Movies</h1>
-    <ul class="movie container">
+        <p><a href="/" class="button is-secondary is-small">Main Page</a> <a href="/users" class="button is-secondary is-small">Users List</a></p>
+        <p><a href="/users/{{ user.id }}/add_movie" class="button is-small">Add Movie</a></p>
+    </header>
+    <ul class="movies container">
         {% for movie_id, movie_data in movies.items() %}
-            <li> <img class="movie-poster" src="{{ movie_data.poster_url }}" >
+            <li class="movie"> <img class="movie-poster" src="{{ movie_data.poster_url }}" >
                 <h3>{{ movie_data.title }}</h3>
                 <p>Director: {{ movie_data.director }}</p>
                 <p>Year: {{ movie_data.year }}</p>
                 <p>Rating: {{ movie_data.rating }}</p>
-                <p><a href="/users/{{ user.id }}/update_movie/{{ movie_id }}">Edit</a> | <a href="#" class="delete-movie" data-user="{{ user.id }}" data-movie="{{ movie_id }}">Delete</a></p>
+                <p class="button-group"><a href="/users/{{ user.id }}/update_movie/{{ movie_id }}" class="button is-small">Edit</a> <a href="#" class="delete-movie button is-small" data-user="{{ user.id }}" data-movie="{{ movie_id }}">Delete</a></p>
 </li>
         {% endfor %}
     </ul>
-    <a href="/users/{{ user.id }}/add_movie" class="simple-button">Add Movie</a>
-    <a href="/users" class="simple-button">Back to Users List</a>
+    <footer><a href="/users/{{ user.id }}/add_movie" class="button">Add Movie</a></footer>
+
 <script src="/static/main.js"></script>
 </body>
 </html>
