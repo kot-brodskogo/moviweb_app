@@ -106,6 +106,29 @@ class JSONDataManager(DataManagerInterface):
 
         return self.data['users'][user_id_str].get('movies', {})
 
+    def get_movie(self, user_id, movie_id):
+        """
+        Get details of a specific movie for a given user.
+
+        Args:
+            user_id (int): The ID of the user.
+            movie_id (str): The ID of the movie.
+
+        Returns:
+            dict: Dictionary containing movie details if found.
+
+        Raises:
+            MovieNotFoundException: If the movie is not found for the given user.
+        """
+        # Get the user's movies
+        user_movies = self.get_user_movies(user_id)
+
+        # Check if the movie exists for the user
+        if movie_id in user_movies:
+            return user_movies[movie_id]
+        else:
+            raise MovieNotFoundException(f"Movie with ID {movie_id} not found for user {user_id}.")
+
     def _user_exists(self, user_id):
         """
         Check if a user with the given ID exists in the loaded data.
@@ -243,21 +266,17 @@ class JSONDataManager(DataManagerInterface):
             movie_id (int): The ID of the movie to be updated.
             new_movie_data (dict): Dictionary containing updated movie data.
         """
-        # Check if the user exists
-        if not self._user_exists(user_id):
-            print(f"User with ID '{user_id}' does not exist.")
-            return
+        # Get the user's movies
+        user_movies = self.get_user_movies(user_id)
+
+        print(f"I've been here and those are {user_movies}")
 
         # Check if the movie exists for the user
-        if not self._movie_exists(user_id, movie_id):
-            print(f"Movie with ID '{movie_id}' not found for user '{user_id}'.")
-            return
-
-        # Get the user's movies
-        movies = self.get_user_movies(user_id)
+        if str(movie_id) not in user_movies:
+            raise MovieNotFoundException(f"Movie with ID {movie_id} not found for user {user_id}.")
 
         # Update the movie data
-        movies[str(movie_id)].update(new_movie_data)
+        user_movies[str(movie_id)].update(new_movie_data)
 
         # Save the updated data
         self._save_data(self.data)

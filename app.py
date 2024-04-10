@@ -88,9 +88,30 @@ def add_movie(user_id):
     return render_template('add_movie.html', user_id=user_id)
 
 
-@app.route('/')
-def update_movie():
-    pass
+@app.route('/users/<int:user_id>/update_movie/<movie_id>', methods=['GET', 'POST'])
+def update_movie(user_id, movie_id):
+    if request.method == 'POST':
+        # Extract updated movie data from the form
+        updated_data = {
+            'title': request.form['title'],
+            'director': request.form['director'],
+            'year': int(request.form['year']),
+            'rating': float(request.form['rating'])
+        }
+        try:
+            # Update the movie
+            data_manager.update_movie(user_id, movie_id, updated_data)
+            # return redirect(url_for('display_user_movies', user_id=user_id))
+            # return jsonify({'message': f'Movie with id {movie_id} has been updated successfully.'}), 200
+            return redirect(f'/users/{user_id}')
+        except (UserNotFoundException, MovieNotFoundException) as exception:
+            return render_template('error.html', message=str(exception))
+    try:
+        # Fetch the movie details
+        movie = data_manager.get_movie(user_id, movie_id)
+        return render_template('update_movie.html', user_id=user_id, movie_id=movie_id, movie=movie)
+    except (UserNotFoundException, MovieNotFoundException) as exception:
+        return render_template('error.html', message=str(exception))
 
 
 @app.route('/users/<int:user_id>/delete_movie/<movie_id>', methods=['DELETE'])
