@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users - MovieWeb App</title>
-    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <h1>Users</h1>
+        <a href="/" class="button is-secondary">Main Page</a> | <a href="/add_user" class="button">Add User</a>
     </header>
     <main>
+        <div class="container">
         <ul>
             {% for user_id, user_data in users.items() %}
                 <li><a href="/users/{{ user_id }}">{{ user_data['name'] }}</a></li>
             {% endfor %}
         </ul>
+        </div>
     </main>
-    <a href="/add_user">Add User</a>
 </body>
 </html>

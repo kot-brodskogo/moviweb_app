@@ -4,29 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MovieWeb App</title>
-    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-    <h1>Welcome to Movie App</h1>
-    <p>Discover, rate, and organize your favorite movies with ease!</p>
-
-    <div class="features">
-        <div class="feature-item">
-            <h3>Create Lists</h3>
-            <p>Organize your favorite movies into personalized lists.</p>
-        </div>
-        <div class="feature-item">
-            <h3>Reflect</h3>
-            <p>Share insights and thoughts on the movies you've watched.</p>
-        </div>
-        <div class="feature-item">
-            <h3>Rate & Review</h3>
-            <p>Share your opinions by rating and reviewing movies.</p>
-        </div>
+<div class="index container">
+    <h1 class="index-h1">Welcome to Movie App</h1>
+    <div class="index-p">
+        <p>Discover, rate, and organize your favorite movies with ease!</p>
+    </div>
+    <div class="index-button">
+        <a href="/users" class="button">Users list</a>
     </div>
 
-    <a href="/users" class="cta-button">Users list</a>
+    <div class="index-list">
+        <ul>
+            <li><h3>Create Lists</h3>
+            <p>Organize your favorite movies into personalized lists.</p></li>
+            <li><h3>Reflect</h3>
+            <p>Share insights and thoughts on the movies you've watched.</p></li>
+            <li><h3>Rate & Review</h3>
+            <p>Share your opinions by rating and reviewing movies.</p></li>
+        </ul>
+    </div>
+
 </div>
 </body>
 </html>

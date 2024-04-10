@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Movie</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="container">
     <h2>Add Movie</h2>
     <form action="/users/{{ user_id }}/add_movie" method="post">
         <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title"><br><br>
-        <input type="submit" value="Add Movie">
+        <input type="text" placeholder="Movie title" id="title" name="title" required class="form-control">
+        <input type="submit" value="Add Movie" class="button">
     </form>
+</div>
 </body>
 </html>

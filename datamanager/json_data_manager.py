@@ -219,7 +219,7 @@ class JSONDataManager(DataManagerInterface):
 
         user_movies[movie_id] = {
             'id': movie_id,
-            'title': title,
+            'title': movie_info.get('Title'),
             'director': movie_info.get('Director'),
             'year': int(movie_info.get('Year')),
             'rating': float(movie_info.get('imdbRating')),

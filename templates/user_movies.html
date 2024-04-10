@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Movies</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>{{ user.name }}'s Favorite Movies</h1>
-    <ul>
+    <ul class="movie container">
         {% for movie_id, movie_data in movies.items() %}
-            <li>{{ movie_data.title }} - <a href="/users/{{ user.id }}/update_movie/{{ movie_id }}">Edit</a> | <a href="#" class="delete-movie" data-user="{{ user.id }}" data-movie="{{ movie_id }}">Delete</a>
+            <li> <img class="movie-poster" src="{{ movie_data.poster_url }}" >
+                <h3>{{ movie_data.title }}</h3>
+                <p>Director: {{ movie_data.director }}</p>
+                <p>Year: {{ movie_data.year }}</p>
+                <p>Rating: {{ movie_data.rating }}</p>
+                <p><a href="/users/{{ user.id }}/update_movie/{{ movie_id }}">Edit</a> | <a href="#" class="delete-movie" data-user="{{ user.id }}" data-movie="{{ movie_id }}">Delete</a></p>
 </li>
         {% endfor %}
     </ul>
-    <a href="/users/{{ user.id }}/add_movie">Add Movie</a>
-    <a href="/users">Back to Users List</a>
+    <a href="/users/{{ user.id }}/add_movie" class="simple-button">Add Movie</a>
+    <a href="/users" class="simple-button">Back to Users List</a>
 <script src="/static/main.js"></script>
 </body>
 </html>

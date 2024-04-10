@@ -4,24 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Movie</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="container">
     <h1>Update Movie</h1>
     <form action="/users/{{ user_id }}/update_movie/{{ movie_id }}" method="POST">
         <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" value="{{ movie.title }}"><br><br>
+        <input type="text" id="title" name="title" value="{{ movie.title }}" class="form-control"><br><br>
 
         <label for="director">Director:</label><br>
-        <input type="text" id="director" name="director" value="{{ movie.director }}"><br><br>
+        <input type="text" id="director" name="director" value="{{ movie.director }}" class="form-control"><br><br>
 
         <label for="year">Year:</label><br>
-        <input type="number" id="year" name="year" value="{{ movie.year }}"><br><br>
+        <input type="number" id="year" name="year" value="{{ movie.year }}" class="form-control"><br><br>
 
         <label for="rating">Rating:</label><br>
-        <input type="number" id="rating" name="rating" step="0.1" value="{{ movie.rating }}"><br><br>
+        <input type="number" id="rating" name="rating" step="0.1" value="{{ movie.rating }}" class="form-control"><br><br>
 
         <!-- You can include additional fields here as needed -->
-        <input type="submit" value="Update Movie">
+        <input type="submit" value="Update Movie" class="button">
     </form>
+</div>
 </body>
 </html>

@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add User</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="container">
     <h1>Add User</h1>
+
     <form action="/add_user" method="post">
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <button type="submit">Add User</button>
+        <input type="text" placeholder="Name or nickname" id="username" name="username" required class="form-control">
+        <button type="submit" class="button">Add User</button>
     </form>
     {% if error_message %}
         <p>{{ error_message }}</p>
     {% endif %}
+        </div>
 </body>
 </html>
