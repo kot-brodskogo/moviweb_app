@@ -16,6 +16,7 @@
         <p><a href="/users/{{ user.id }}/add_movie" class="button is-small">Add Movie</a></p>
     </header>
     <ul class="movies container">
+        {% if movies %}
         {% for movie_id, movie_data in movies.items() %}
             <li class="movie"> <img class="movie-poster" src="{{ movie_data.poster_url }}" >
                 <h3>{{ movie_data.title }}</h3>
@@ -25,8 +26,23 @@
                 <p class="button-group"><a href="/users/{{ user.id }}/update_movie/{{ movie_id }}" class="button is-small">Edit</a> <a href="#" class="delete-movie button is-small" data-user="{{ user.id }}" data-movie="{{ movie_id }}">Delete</a></p>
 </li>
         {% endfor %}
+        {% else %}
+    <p>No movies found for this user.</p>
+{% endif %}
     </ul>
     <footer><a href="/users/{{ user.id }}/add_movie" class="button">Add Movie</a></footer>
+
+    <!-- Modal HTML -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Are you sure you want to delete this movie?</p>
+    <div class="button-group is-modal">
+      <button id="confirmDelete" class="delete-movie button is-small">Yes, Delete</button>
+      <button id="cancelDelete" class="button is-small is-secondary">Cancel</button>
+    </div>
+  </div>
+</div>
 
 <script src="/static/main.js"></script>
 </body>
