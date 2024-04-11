@@ -148,11 +148,6 @@
         "4": {
             "id": 4,
             "name": "Tim",
-            "movies": {}
-        },
-        "5": {
-            "id": 5,
-            "name": "allive",
             "movies": {
                 "tt0245429": {
                     "id": "tt0245429",
@@ -164,24 +159,9 @@
                 }
             }
         },
-        "6": {
-            "id": 6,
-            "name": "bomge",
-            "movies": {}
-        },
-        "7": {
-            "id": 7,
-            "name": "Allive",
-            "movies": {}
-        },
-        "8": {
-            "id": 8,
+        "5": {
+            "id": 5,
             "name": "Simon",
-            "movies": {}
-        },
-        "9": {
-            "id": 9,
-            "name": "Yim",
             "movies": {}
         }
     }

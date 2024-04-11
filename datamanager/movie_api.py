@@ -2,11 +2,23 @@ import requests
 
 
 class MovieAPI:
+    """ A class for interacting with the OMDb API to fetch movie information. """
     OMDB_API_KEY = '4b3bad41'
 
     @staticmethod
     def fetch_movie_info(title):
-        """Fetches movie information from the OMDb API."""
+        """
+        Fetches movie information from the OMDb API.
+
+        Args:
+            title (str): The title of the movie to fetch information for.
+
+        Returns:
+            dict: A dictionary containing information about the movie.
+
+        Raises:
+            Exception: If there was an error fetching movie information.
+        """
         url = f'http://www.omdbapi.com/?apikey={MovieAPI.OMDB_API_KEY}&t={title}'
         response = requests.get(url)
         if response.status_code == 200:

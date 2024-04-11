@@ -27,7 +27,9 @@ document.querySelectorAll('.delete-movie').forEach(link => {
             })
             .catch(error => {
                 console.error('Error deleting movie:', error);
-                // Handle the error (e.g., display an error message to the user)
+                // Display an error message to the user
+                const errorMessage = 'An error occurred while deleting the movie. Please try again later.';
+                alert(errorMessage); // Display the error message in an alert dialog
             });
         });
 
